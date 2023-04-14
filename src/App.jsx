@@ -124,7 +124,7 @@ const App = () => {
   return (
     <div>
       <div>
-      <Game/>
+      <Changinggame/>
       </div>
     
   
