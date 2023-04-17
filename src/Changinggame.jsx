@@ -25,7 +25,7 @@ const App = () => {
   // }, [showPrompt, player1, player2]);
 
   const handlerclick = (index) => {
-  
+   //
 
     if (gameOver) {
       return;
