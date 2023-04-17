@@ -13,22 +13,21 @@ const App = () => {
   // const [first1, setfirst1] = useState("");
   // const [second1, setsecond1] = useState("");
 
-  useEffect(() => {
-    if (showPrompt && (!player1 || !player2)) {
-      const p1 = prompt("Enter First Player Name", "Player 1");
-      const p2 = prompt("Enter Second Player Name", "Player 2");
-      setPlayer1(p1);
-      setPlayer2(p2);
-      setShowPrompt(false);
-    }
-  }, [showPrompt,player1,player2]);
+  // useEffect(() => {
+  //   if (showPrompt && (!player1 || !player2)) {
+  //     const p1 = prompt("Enter First Player Name", "Player 1");
+  //     const p2 = prompt("Enter Second Player Name", "Player 2");
+  //     setPlayer1(p1);
+  //     setPlayer2(p2);
+  //     setShowPrompt(false);
+  //   }
+  // }, [showPrompt, player1, player2]);
 
   const handlerclick = (index) => {
     if (gameOver) {
-console.log(gameOver,"vjadgsjhgjhg");
       // return;
     }
-    console.log("hanmd:", index);
+
     const mycopy = [...thisstate];
     mycopy[index] = turn ? "x" : "0";
     setthisstate(mycopy);
@@ -54,7 +53,7 @@ console.log(gameOver,"vjadgsjhgjhg");
       [0, 5, 10, 15],
       [3, 6, 9, 12],
     ];
-console.log(thisstate);
+    console.log(thisstate);
     for (let z of winnerlogic) {
       const [a, b, c, d] = z;
       if (
@@ -64,27 +63,41 @@ console.log(thisstate);
         thisstate[a] === thisstate[d]
       ) {
         //after comparing a with b and c it restrn a mean winner
-        // setGameOver(true);
+
         return thisstate[a];
       }
     }
     return false;
   };
+
   const win = checkwinner();
-  console.log(win,"win");
-  const checkwin=()=>
-  {
-    if(win=='x' || '0')
-    {
-        setGameOver(true)
-    }
+  console.log("mkn", win);
+  let status;
+
+  if ((win === "x") | "0" && !gameOver) {
+    setGameOver(true);
   }
+  // console.log(win, "win");
+
   const myhandleis = () => {
     setthisstate(Array(9).fill(null));
+    var a = prompt("Enter First Player Name");
+    var b = prompt("Enter Second Player Name");
+    setPlayer1(a);
+    setPlayer2(b);
+    setGameOver(false);
+  };
+  const myhandle = () => {
+    setthisstate(Array(9).fill(null));
+    var a = prompt("Enter First Player Name");
+    var b = prompt("Enter Second Player Name");
+    setPlayer1(a);
+    setPlayer2(b);
+    setGameOver(false);
   };
 
   return (
-    <div>
+    <div name="viewport" content="width=device-width, initial-scale=1.0">
       <h3
         style={{
           marginLeft: "250px",
@@ -95,6 +108,20 @@ console.log(thisstate);
       >
         Tik Tak Toe 2 players Game
       </h3>
+      <button
+        style={{
+          marginLeft: "250px",
+          borderRadius: "10px ",
+          background: "green",
+          border: "none",
+          height: "40px",
+          color: "white",
+        }}
+        onClick={myhandle}
+      >
+        {" "}
+        Start Game{" "}
+      </button>
       {/* <div style={{marginLeft:"80px"}}>
       <input
         type="text"
@@ -111,45 +138,121 @@ console.log(thisstate);
       <button onClick={secondhandler}>Enter</button>
       <h3>Player is :{second1}</h3>
       </div> */}
-      <div className="board" onClick={checkwin} disabled={gameOver} style={{ marginTop: -6, marginLeft: "300px" }}>
+
+      <div className="board" style={{ marginTop: -6, marginLeft: "300px" }}>
         {/* when the win will true then it shows winner name otherwise shows board */}
 
         <>
-        {win ? (
-    <h2>{win === 'x' ? player1 : player2} wins! </h2>
-  ) : (
-    <h2>Player {turn ? player1 : player2}'s turn</h2>
-  )}
+          {win ? (
+            <h2>{win === "x" ? player1 : player2} wins! </h2>
+          ) : (
+            <h2>Player {turn ? player1 : player2}'s turn</h2>
+          )}
 
-          <div className="board-row" >
-            <Square onClick={() => handlerclick(0)} value={thisstate[0]}  disabled={gameOver} />
-            <Square onClick={() => handlerclick(1)} value={thisstate[1]}   />
-            <Square onClick={() => handlerclick(2)} value={thisstate[2]} />
-            <Square onClick={() => handlerclick(3)} value={thisstate[3]}/>
+          <div className="board-row">
+            <Square
+              onClick={() => handlerclick(0)}
+              value={thisstate[0]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(1)}
+              value={thisstate[1]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(2)}
+              value={thisstate[2]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(3)}
+              value={thisstate[3]}
+              disabled={gameOver}
+            />
           </div>
           <div className="board-row">
-            <Square onClick={() => handlerclick(4)} value={thisstate[4]}  />
-            <Square onClick={() => handlerclick(5)} value={thisstate[5]}  />
-            <Square onClick={() => handlerclick(6)} value={thisstate[6]} />
-            <Square onClick={() => handlerclick(7)} value={thisstate[7]} />
+            <Square
+              onClick={() => handlerclick(4)}
+              value={thisstate[4]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(5)}
+              value={thisstate[5]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(6)}
+              value={thisstate[6]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(7)}
+              value={thisstate[7]}
+              disabled={gameOver}
+            />
           </div>
           <div className="board-row">
-            <Square onClick={() => handlerclick(8)} value={thisstate[8]} />
-            <Square onClick={() => handlerclick(9)} value={thisstate[9]} />
-            <Square onClick={() => handlerclick(10)} value={thisstate[10]} />
-            <Square onClick={() => handlerclick(11)} value={thisstate[11]} />
+            <Square
+              onClick={() => handlerclick(8)}
+              value={thisstate[8]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(9)}
+              value={thisstate[9]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(10)}
+              value={thisstate[10]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(11)}
+              value={thisstate[11]}
+              disabled={gameOver}
+            />
           </div>
           <div className="board-row">
-            <Square onClick={() => handlerclick(12)} value={thisstate[12]} />
-            <Square onClick={() => handlerclick(13)} value={thisstate[13]} />
-            <Square onClick={() => handlerclick(14)} value={thisstate[14]} />
-            <Square onClick={() => handlerclick(15)} value={thisstate[15]} />
+            <Square
+              onClick={() => handlerclick(12)}
+              value={thisstate[12]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(13)}
+              value={thisstate[13]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(14)}
+              value={thisstate[14]}
+              disabled={gameOver}
+            />
+            <Square
+              onClick={() => handlerclick(15)}
+              value={thisstate[15]}
+              disabled={gameOver}
+            />
           </div>
         </>
 
         <>
-        
-          <button onClick={myhandleis}>play again</button>
+          <button
+            style={{
+              borderRadius: "10px ",
+              background: "green",
+              border: "none",
+              color: "white",
+              height: "30px",
+              marginTop: "20px",
+            }}
+            onClick={myhandleis}
+          >
+            play again
+          </button>
         </>
       </div>
     </div>
