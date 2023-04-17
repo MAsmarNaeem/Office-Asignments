@@ -151,8 +151,6 @@ const App = () => {
       >
         play again
       </button> </h2>
-      
-
     }
   }
   return (
