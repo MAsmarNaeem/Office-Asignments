@@ -8,6 +8,7 @@ const App = () => {
   const [player2, setPlayer2] = useState("");
   const [showPrompt, setShowPrompt] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+
   // const [first, setfirst] = useState("");
   // const [Second, setSecond] = useState("");
   // const [first1, setfirst1] = useState("");
@@ -30,7 +31,6 @@ const App = () => {
     //   console.log("pla:",player1);
 
     // }
-
 
     if (gameOver) {
       return;
@@ -76,25 +76,25 @@ const App = () => {
         return thisstate[a];
       }
     }
+
     return false;
   };
 
   const win = checkwinner();
 
-  let status;
-
   if ((win === "x" || win === "0") && !gameOver) {
     setGameOver(true);
   }
+
   // console.log(win, "win");
 
   const myhandleis = () => {
     setthisstate(Array(9).fill(null));
 
-    var a = prompt("Enter First Player Name");
-    var b = prompt("Enter Second Player Name");
-    setPlayer1(a);
-    setPlayer2(b);
+    // var a = prompt("Enter First Player Name");
+    // var b = prompt("Enter Second Player Name");
+    setPlayer1(player1);
+    setPlayer2(player2);
     setGameOver(false);
   };
   // const myhandle = () => {
@@ -275,19 +275,21 @@ const App = () => {
           </>
 
           <>
-            <button
-              style={{
-                borderRadius: "10px ",
-                background: "green",
-                border: "none",
-                color: "white",
-                height: "30px",
-                marginTop: "20px",
-              }}
-              onClick={myhandleis}
-            >
-              play again
-            </button>
+            {win && (
+              <button
+                style={{
+                  borderRadius: "10px ",
+                  background: "green",
+                  border: "none",
+                  color: "white",
+                  height: "30px",
+                  marginTop: "20px",
+                }}
+                onClick={myhandleis}
+              >
+                play again
+              </button>
+            )}
           </>
         </div>
       }
