@@ -6,7 +6,7 @@ const App = () => {
   const [turn, setturn] = useState(true);
   const [player1, setPlayer1] = useState("");
   const [player2, setPlayer2] = useState("");
-  const [showPrompt, setShowPrompt] = useState(true);
+  const [showPrompt, setShowPrompt] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   // const [first, setfirst] = useState("");
   // const [Second, setSecond] = useState("");
@@ -24,9 +24,18 @@ const App = () => {
   // }, [showPrompt, player1, player2]);
 
   const handlerclick = (index) => {
+    // if(player1|| player2 =="")
+    // {
+    //   console.log("gh");
+    //   console.log("pla:",player1);
+
+    // }
+
+
     if (gameOver) {
-      // return;
+      return;
     }
+    myhandle();
 
     const mycopy = [...thisstate];
     mycopy[index] = turn ? "x" : "0";
@@ -53,7 +62,7 @@ const App = () => {
       [0, 5, 10, 15],
       [3, 6, 9, 12],
     ];
-    console.log(thisstate);
+
     for (let z of winnerlogic) {
       const [a, b, c, d] = z;
       if (
@@ -71,29 +80,55 @@ const App = () => {
   };
 
   const win = checkwinner();
-  console.log("mkn", win);
+
   let status;
 
-  if ((win === "x") | "0" && !gameOver) {
+  if ((win === "x" || win === "0") && !gameOver) {
     setGameOver(true);
   }
   // console.log(win, "win");
 
   const myhandleis = () => {
     setthisstate(Array(9).fill(null));
+
     var a = prompt("Enter First Player Name");
     var b = prompt("Enter Second Player Name");
     setPlayer1(a);
     setPlayer2(b);
     setGameOver(false);
   };
+  // const myhandle = () => {
+  //   setthisstate(Array(9).fill(null));
+
+  //   var a = prompt("Enter First Player Name");
+  //   var b = prompt("Enter Second Player Name");
+  //   setPlayer1(a);
+  //   setPlayer2(b);
+  //   setGameOver(false);
+  // };
   const myhandle = () => {
-    setthisstate(Array(9).fill(null));
-    var a = prompt("Enter First Player Name");
-    var b = prompt("Enter Second Player Name");
-    setPlayer1(a);
-    setPlayer2(b);
-    setGameOver(false);
+    if (player1 && player2) {
+      setthisstate(Array(9).fill(null));
+      setGameOver(false);
+    } else {
+      alert("Please enter player names!");
+      var a = prompt("Enter First Player Name");
+      var b = prompt("Enter Second Player Name");
+      setPlayer1(a);
+      setPlayer2(b);
+      setthisstate(Array(9).fill(null));
+      setGameOver(false);
+    }
+  };
+  const clickme = () => {
+    if ((player1 && player2) == null) {
+      myhandleis();
+    }
+  };
+  const wor = () => {
+    if (player1 && player2 == null) {
+      setShowPrompt(true);
+    }
   };
 
   return (
@@ -138,123 +173,124 @@ const App = () => {
       <button onClick={secondhandler}>Enter</button>
       <h3>Player is :{second1}</h3>
       </div> */}
+      {
+        <div className="board" style={{ marginTop: -6, marginLeft: "300px" }}>
+          {/* when the win will true then it shows winner name otherwise shows board */}
 
-      <div className="board" style={{ marginTop: -6, marginLeft: "300px" }}>
-        {/* when the win will true then it shows winner name otherwise shows board */}
+          <>
+            {win ? (
+              <h2>{win === "x" ? player1 : player2} wins! </h2>
+            ) : (
+              <h2>Player {turn ? player1 : player2}'s turn</h2>
+            )}
 
-        <>
-          {win ? (
-            <h2>{win === "x" ? player1 : player2} wins! </h2>
-          ) : (
-            <h2>Player {turn ? player1 : player2}'s turn</h2>
-          )}
+            <div className="board-row">
+              <Square
+                onClick={() => handlerclick(0)}
+                value={thisstate[0]}
+                disabled={gameOver || showPrompt}
+              />
+              <Square
+                onClick={() => handlerclick(1)}
+                value={thisstate[1]}
+                disabled={gameOver}
+              />
+              <Square
+                onClick={() => handlerclick(2)}
+                value={thisstate[2]}
+                disabled={gameOver}
+              />
+              <Square
+                onClick={() => handlerclick(3)}
+                value={thisstate[3]}
+                disabled={gameOver}
+              />
+            </div>
+            <div className="board-row">
+              <Square
+                onClick={() => handlerclick(4)}
+                value={thisstate[4]}
+                disabled={gameOver}
+              />
+              <Square
+                onClick={() => handlerclick(5)}
+                value={thisstate[5]}
+                disabled={gameOver}
+              />
+              <Square
+                onClick={() => handlerclick(6)}
+                value={thisstate[6]}
+                disabled={gameOver}
+              />
+              <Square
+                onClick={() => handlerclick(7)}
+                value={thisstate[7]}
+                disabled={gameOver}
+              />
+            </div>
+            <div className="board-row">
+              <Square
+                onClick={() => handlerclick(8)}
+                value={thisstate[8]}
+                disabled={gameOver}
+              />
+              <Square
+                onClick={() => handlerclick(9)}
+                value={thisstate[9]}
+                disabled={gameOver}
+              />
+              <Square
+                onClick={() => handlerclick(10)}
+                value={thisstate[10]}
+                disabled={gameOver}
+              />
+              <Square
+                onClick={() => handlerclick(11)}
+                value={thisstate[11]}
+                disabled={gameOver}
+              />
+            </div>
+            <div className="board-row">
+              <Square
+                onClick={() => handlerclick(12)}
+                value={thisstate[12]}
+                disabled={gameOver}
+              />
+              <Square
+                onClick={() => handlerclick(13)}
+                value={thisstate[13]}
+                disabled={gameOver}
+              />
+              <Square
+                onClick={() => handlerclick(14)}
+                value={thisstate[14]}
+                disabled={gameOver}
+              />
+              <Square
+                onClick={() => handlerclick(15)}
+                value={thisstate[15]}
+                disabled={gameOver}
+              />
+            </div>
+          </>
 
-          <div className="board-row">
-            <Square
-              onClick={() => handlerclick(0)}
-              value={thisstate[0]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(1)}
-              value={thisstate[1]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(2)}
-              value={thisstate[2]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(3)}
-              value={thisstate[3]}
-              disabled={gameOver}
-            />
-          </div>
-          <div className="board-row">
-            <Square
-              onClick={() => handlerclick(4)}
-              value={thisstate[4]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(5)}
-              value={thisstate[5]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(6)}
-              value={thisstate[6]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(7)}
-              value={thisstate[7]}
-              disabled={gameOver}
-            />
-          </div>
-          <div className="board-row">
-            <Square
-              onClick={() => handlerclick(8)}
-              value={thisstate[8]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(9)}
-              value={thisstate[9]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(10)}
-              value={thisstate[10]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(11)}
-              value={thisstate[11]}
-              disabled={gameOver}
-            />
-          </div>
-          <div className="board-row">
-            <Square
-              onClick={() => handlerclick(12)}
-              value={thisstate[12]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(13)}
-              value={thisstate[13]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(14)}
-              value={thisstate[14]}
-              disabled={gameOver}
-            />
-            <Square
-              onClick={() => handlerclick(15)}
-              value={thisstate[15]}
-              disabled={gameOver}
-            />
-          </div>
-        </>
-
-        <>
-          <button
-            style={{
-              borderRadius: "10px ",
-              background: "green",
-              border: "none",
-              color: "white",
-              height: "30px",
-              marginTop: "20px",
-            }}
-            onClick={myhandleis}
-          >
-            play again
-          </button>
-        </>
-      </div>
+          <>
+            <button
+              style={{
+                borderRadius: "10px ",
+                background: "green",
+                border: "none",
+                color: "white",
+                height: "30px",
+                marginTop: "20px",
+              }}
+              onClick={myhandleis}
+            >
+              play again
+            </button>
+          </>
+        </div>
+      }
     </div>
   );
 };
