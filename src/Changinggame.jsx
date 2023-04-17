@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Square from "./Square";
 
 const App = () => {
-  const [thisstate, setthisstate] = useState(Array(9).fill(null));
+  const [thisstate, setthisstate] = useState(Array(16).fill(null));
   const [turn, setturn] = useState(true);
   const [player1, setPlayer1] = useState("");
   const [player2, setPlayer2] = useState("");
@@ -25,12 +25,7 @@ const App = () => {
   // }, [showPrompt, player1, player2]);
 
   const handlerclick = (index) => {
-    // if(player1|| player2 =="")
-    // {
-    //   console.log("gh");
-    //   console.log("pla:",player1);
-
-    // }
+  
 
     if (gameOver) {
       return;
@@ -78,6 +73,7 @@ const App = () => {
     }
 
     return false;
+    
   };
 
   const win = checkwinner();
@@ -85,11 +81,17 @@ const App = () => {
   if ((win === "x" || win === "0") && !gameOver) {
     setGameOver(true);
   }
+  console.log("hghghghgh",thisstate!=null);
+ 
+
+  
+
+
 
   // console.log(win, "win");
 
   const myhandleis = () => {
-    setthisstate(Array(9).fill(null));
+    setthisstate(Array(16).fill(null));
 
     // var a = prompt("Enter First Player Name");
     // var b = prompt("Enter Second Player Name");
@@ -130,7 +132,29 @@ const App = () => {
       setShowPrompt(true);
     }
   };
+  for(let i=0;i<thisstate.length;i++)
+  {
+    if(thisstate[0] && thisstate[1] && thisstate[2] && thisstate[3] && thisstate[4] && thisstate[5] && thisstate[6]
+      && thisstate[7] && thisstate[8] && thisstate[9] && thisstate[10] && thisstate[11] && thisstate[12] && thisstate[13]&& thisstate[14]&& thisstate[15]
+       !=null)
+    {
+        return <h2>Draw match try again <button
+        style={{
+          borderRadius: "10px ",
+          background: "green",
+          border: "none",
+          color: "white",
+          height: "30px",
+          marginTop: "20px",
+        }}
+        onClick={myhandleis}
+      >
+        play again
+      </button> </h2>
+      
 
+    }
+  }
   return (
     <div name="viewport" content="width=device-width, initial-scale=1.0">
       <h3
