@@ -1,4 +1,4 @@
- body{
+ /* body{
     background-color: rgb(168, 212, 102);
     display: flex;
     justify-content: center;
@@ -67,8 +67,8 @@
    grid-template-columns: auto auto auto;
 
 
-}
-/* 
+} */
+
 .board-row {
   display: flex;
   justify-content: space-between;
@@ -84,4 +84,4 @@
 }
 body {
   background-color: aqua;
-} */
+}
