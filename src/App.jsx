@@ -118,7 +118,7 @@
 import React from 'react'
 import "./App.css"
 import Changinggame from '../src/Changinggame'
-import Game from '../src/Game'
+// import Game from '../src/Game'
 
 const App = () => {
   return (

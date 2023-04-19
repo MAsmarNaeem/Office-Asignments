@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Square from "./Square";
 
 const App = () => {
@@ -6,8 +6,9 @@ const App = () => {
   const [turn, setturn] = useState(true);
   const [player1, setPlayer1] = useState("");
   const [player2, setPlayer2] = useState("");
-  const [showPrompt, setShowPrompt] = useState(false);
+  // const [showPrompt, setShowPrompt] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [valueSet, setValueSet] = useState(Array(16).fill(false));
 
   // const [first, setfirst] = useState("");
   // const [Second, setSecond] = useState("");
@@ -24,18 +25,49 @@ const App = () => {
   //   }
   // }, [showPrompt, player1, player2]);
 
-  const handlerclick = (index) => {
-   //
+  //   const handlerclick = (index) => {
+  //     //
 
+  //     if (gameOver) {
+  //       return;
+  //     }
+  //     myhandle();
+
+  //     const mycopy = [...thisstate];
+  //   //   mycopy[index] = turn ? "x" : "0";
+  //   //   setthisstate(mycopy);
+  //   //   setturn(!turn);
+  //   // };
+  //   if (mycopy[index] === null) { // check if value is already set
+  //     mycopy[index] = turn ? "x" : "0";
+  //     setthisstate(mycopy);
+  //     setturn(!turn);
+  //   }
+  //   else if(mycopy[index] !==null)
+  //   {
+  //     alert("You channot change value")
+  //   }
+  // };
+  const handlerclick = (index) => {
     if (gameOver) {
       return;
     }
     myhandle();
-
     const mycopy = [...thisstate];
-    mycopy[index] = turn ? "x" : "0";
-    setthisstate(mycopy);
-    setturn(!turn);
+
+    if (!valueSet[index]) {
+      // check if value is already set
+      mycopy[index] = turn ? "x" : "0";
+      setthisstate(mycopy);
+      setturn(!turn);
+      setValueSet((prevState) => {
+        const newValueSet = [...prevState];
+        newValueSet[index] = true;
+        return newValueSet;
+      });
+    } else {
+      alert("You cannot change value");
+    }
   };
 
   // const firsthandler = () => {
@@ -73,7 +105,6 @@ const App = () => {
     }
 
     return false;
-    
   };
 
   const win = checkwinner();
@@ -81,23 +112,21 @@ const App = () => {
   if ((win === "x" || win === "0") && !gameOver) {
     setGameOver(true);
   }
-  console.log("hghghghgh",thisstate!=null);
- 
-
-  
-
-
+  console.log("hghghghgh", thisstate != null);
 
   // console.log(win, "win");
 
   const myhandleis = () => {
     setthisstate(Array(16).fill(null));
+    setValueSet(Array(16).fill(false));
 
     // var a = prompt("Enter First Player Name");
     // var b = prompt("Enter Second Player Name");
     setPlayer1(player1);
     setPlayer2(player2);
     setGameOver(false);
+  
+
   };
   // const myhandle = () => {
   //   setthisstate(Array(9).fill(null));
@@ -111,6 +140,7 @@ const App = () => {
   const myhandle = () => {
     if (player1 && player2) {
       setthisstate(Array(9).fill(null));
+      setValueSet(Array(16).fill(false));
       setGameOver(false);
     } else {
       alert("Please enter player names!");
@@ -122,37 +152,58 @@ const App = () => {
       setGameOver(false);
     }
   };
-  const clickme = () => {
-    if ((player1 && player2) == null) {
-      myhandleis();
+  // const clickme = () => {
+  //   if ((player1 && player2) == null) {
+  //     myhandleis();
+  //   }
+  // };
+  // const wor = () => {
+  //   if (player1 && player2 == null) {
+  //     setShowPrompt(true);
+  //   }
+  // };
+
+  const my = () => {
+    for (let i = 0; i < thisstate.length; i++) {
+      if (
+        thisstate[0] &&
+        thisstate[1] &&
+        thisstate[2] &&
+        thisstate[3] &&
+        thisstate[4] &&
+        thisstate[5] &&
+        thisstate[6] &&
+        thisstate[7] &&
+        thisstate[8] &&
+        thisstate[9] &&
+        thisstate[10] &&
+        thisstate[11] &&
+        thisstate[12] &&
+        thisstate[13] &&
+        thisstate[14] &&
+        thisstate[15] != null
+      ) {
+        return (
+          <h2>
+            Draw match try again{" "}
+            <button
+              style={{
+                borderRadius: "10px ",
+                background: "green",
+                border: "none",
+                color: "white",
+                height: "30px",
+                marginTop: "20px",
+              }}
+              onClick={myhandleis}
+            >
+              play again
+            </button>{" "}
+          </h2>
+        );
+      }
     }
   };
-  const wor = () => {
-    if (player1 && player2 == null) {
-      setShowPrompt(true);
-    }
-  };
-  for(let i=0;i<thisstate.length;i++)
-  {
-    if(thisstate[0] && thisstate[1] && thisstate[2] && thisstate[3] && thisstate[4] && thisstate[5] && thisstate[6]
-      && thisstate[7] && thisstate[8] && thisstate[9] && thisstate[10] && thisstate[11] && thisstate[12] && thisstate[13]&& thisstate[14]&& thisstate[15]
-       !=null)
-    {
-        return <h2>Draw match try again <button
-        style={{
-          borderRadius: "10px ",
-          background: "green",
-          border: "none",
-          color: "white",
-          height: "30px",
-          marginTop: "20px",
-        }}
-        onClick={myhandleis}
-      >
-        play again
-      </button> </h2>
-    }
-  }
   return (
     <div name="viewport" content="width=device-width, initial-scale=1.0">
       <h3
@@ -203,14 +254,19 @@ const App = () => {
             {win ? (
               <h2>{win === "x" ? player1 : player2} wins! </h2>
             ) : (
-              <h2>Player {turn ? player1 : player2}'s turn</h2>
+              //  win!=('x'||'0')?my():<h3>Player {turn ? player1 : player2}'s turn,</h3>
+              //   win !== 'x' || win !== '0' ? my() : `<h3>Player ${turn ? player1 : player2}'s turn,</h3>`
+              // win !== 'x' && win !== '0' ? my() : `<h3>Player ${turn ? player1 : player2}'s turn,</h3>`
+              //
+
+              <h4>Player {turn ? player1 : player2}'s turn</h4>
             )}
 
             <div className="board-row">
               <Square
                 onClick={() => handlerclick(0)}
                 value={thisstate[0]}
-                disabled={gameOver || showPrompt}
+                disabled={gameOver}
               />
               <Square
                 onClick={() => handlerclick(1)}
@@ -297,6 +353,8 @@ const App = () => {
           </>
 
           <>
+            {win !== "x" && win !== "0" ? my() : ""}
+
             {win && (
               <button
                 style={{
