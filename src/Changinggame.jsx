@@ -6,7 +6,7 @@ const App = () => {
   const [turn, setturn] = useState(true);
   const [player1, setPlayer1] = useState("");
   const [player2, setPlayer2] = useState("");
-  // const [showPrompt, setShowPrompt] = useState(false);
+  //const [showPrompt, setShowPrompt] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [valueSet, setValueSet] = useState(Array(16).fill(false));
 
@@ -25,50 +25,55 @@ const App = () => {
   //   }
   // }, [showPrompt, player1, player2]);
 
-  //   const handlerclick = (index) => {
-  //     //
+    const handlerclick = (index) => {
+      //
 
-  //     if (gameOver) {
-  //       return;
-  //     }
-  //     myhandle();
+      if (gameOver) {
+        return;
+      }
+      myhandle();
 
-  //     const mycopy = [...thisstate];
-  //   //   mycopy[index] = turn ? "x" : "0";
-  //   //   setthisstate(mycopy);
-  //   //   setturn(!turn);
-  //   // };
-  //   if (mycopy[index] === null) { // check if value is already set
-  //     mycopy[index] = turn ? "x" : "0";
-  //     setthisstate(mycopy);
-  //     setturn(!turn);
-  //   }
-  //   else if(mycopy[index] !==null)
-  //   {
-  //     alert("You channot change value")
-  //   }
-  // };
-  const handlerclick = (index) => {
-    if (gameOver) {
-      return;
-    }
-    myhandle();
-    const mycopy = [...thisstate];
-
-    if (!valueSet[index]) {
-      // check if value is already set
+      const mycopy = [...thisstate];
+    //   mycopy[index] = turn ? "x" : "0";
+    //   setthisstate(mycopy);
+    //   setturn(!turn);
+    // };
+    if (mycopy[index] === null) { // check if value is already set
       mycopy[index] = turn ? "x" : "0";
       setthisstate(mycopy);
       setturn(!turn);
-      setValueSet((prevState) => {
-        const newValueSet = [...prevState];
-        newValueSet[index] = true;
-        return newValueSet;
-      });
-    } else {
-      alert("You cannot change value");
+    }
+    else if(mycopy[index] !==null)
+    {
+     // alert("You channot change value")
+    // mycopy[index] = turn ? "x" : "0";
+     setthisstate(mycopy);
+    // setturn(!turn);
+    
     }
   };
+  // const handlerclick = (index) => {
+  //   if (gameOver) {
+  //     return;
+  //   }
+  //   myhandle();
+  //   const mycopy = [...thisstate];
+
+  //   if (!valueSet[index]) {
+  //     // check if value is already set
+  //     mycopy[index] = turn ? "x" : "0";
+  //     setthisstate(mycopy);
+  //     setturn(!turn);
+  //     setValueSet((prevState) => {
+  //       const newValueSet = [...prevState];
+  //       newValueSet[index] = true;
+  //        //setthisstate(mycopy);
+  //       return newValueSet;
+  //     });
+  //   } else {
+  //     alert("You cannot change value");
+  //   }
+  // };
 
   // const firsthandler = () => {
   //   setfirst1(z);
@@ -109,24 +114,38 @@ const App = () => {
 
   const win = checkwinner();
 
+
   if ((win === "x" || win === "0") && !gameOver) {
     setGameOver(true);
   }
-  console.log("hghghghgh", thisstate != null);
-
+      
   // console.log(win, "win");
 
+  // const myhandleis = () => {
+  //   setthisstate(Array(16).fill(null));
+  //   setValueSet(Array(16).fill(false));
+
+  //   // var a = prompt("Enter First Player Name");
+  //   // var b = prompt("Enter Second Player Name");
+  //   setPlayer1(player1);
+  //   setPlayer2(player2);
+  //   setGameOver(false);
+  
+
+  // };
   const myhandleis = () => {
     setthisstate(Array(16).fill(null));
     setValueSet(Array(16).fill(false));
-
-    // var a = prompt("Enter First Player Name");
-    // var b = prompt("Enter Second Player Name");
-    setPlayer1(player1);
-    setPlayer2(player2);
+    if (win === "x") {
+      setPlayer1(player1);
+      setPlayer2(player2);
+      setturn(true);
+    } else if(win==="0") {
+      setPlayer1(player2);
+      setPlayer2(player1);
+      setturn(false);
+    }
     setGameOver(false);
-  
-
   };
   // const myhandle = () => {
   //   setthisstate(Array(9).fill(null));
