@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Square from "./Square";
 
 const App = () => {
@@ -8,16 +8,36 @@ const App = () => {
   const [player2, setPlayer2] = useState("");
 
   const [gameOver, setGameOver] = useState(false);
-  const [valueSet, setValueSet] = useState(Array(16).fill(false));
+  const [start, setstart] = useState(true);
+  const [time, setTime] = useState(0);
+
+  //
+  useEffect(() => {
+    let interval;
+    if (!gameOver && !start) {
+      interval = setInterval(() => {
+        setTime((time) => time + 1);
+      }, 1000);
+    }
+
+    if (time >= 15) {
+      setturn(!turn);
+      setTime(0);
+    }
+
+    return () => clearInterval(interval);
+  }, [gameOver, start, time, turn]);
 
   const handlerclick = (index) => {
     //
-
+    if (start) {
+      return alert("Click on Start Button");
+    }
     if (gameOver) {
       return;
     }
     myhandle();
-
+    setTime(0);
     const mycopy = [...thisstate];
 
     if (mycopy[index] === null) {
@@ -69,7 +89,7 @@ const App = () => {
 
   const myhandleis = () => {
     setthisstate(Array(16).fill(null));
-    setValueSet(Array(16).fill(false));
+
     if (win === "x") {
       setPlayer1(player1);
       setPlayer2(player2);
@@ -83,9 +103,9 @@ const App = () => {
   };
 
   const myhandle = () => {
+    setstart(false);
     if (player1 && player2) {
-      setthisstate(Array(9).fill(null));
-      setValueSet(Array(16).fill(false));
+      setthisstate(Array(16).fill(null));
       setGameOver(false);
     } else {
       alert("Please enter player names!");
@@ -93,7 +113,7 @@ const App = () => {
       var b = prompt("Enter Second Player Name");
       setPlayer1(a);
       setPlayer2(b);
-      setthisstate(Array(9).fill(null));
+      setthisstate(Array(16).fill(null));
       setGameOver(false);
     }
   };
@@ -139,6 +159,9 @@ const App = () => {
       }
     }
   };
+  const how = () => {
+    setstart(true);
+  };
   return (
     <div name="viewport" content="width=device-width, initial-scale=1.0">
       <h3
@@ -164,6 +187,20 @@ const App = () => {
       >
         {" "}
         Start Game{" "}
+      </button>
+      <button
+        style={{
+          marginLeft: "50px",
+          borderRadius: "10px ",
+          background: "green",
+          border: "none",
+          height: "40px",
+          color: "white",
+        }}
+        //  onClick={how}
+      >
+        {" "}
+        Timer {time}{" "}
       </button>
 
       {
